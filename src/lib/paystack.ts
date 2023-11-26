@@ -1,5 +1,9 @@
 import axios from "axios";
 import config from "../config";
+import {
+  CreateTransferRecipientPayload,
+  CreateTransferRecipientResponse,
+} from "../types/paystack";
 
 class PaystackService {
   client: any;
@@ -17,18 +21,29 @@ class PaystackService {
     this.client.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   }
 
-  async createTransferRecipient(): Promise<{
-    UserId: string;
-    access_token: string;
-  }> {
+  async initiateTransferRecipient(
+    payload: CreateTransferRecipientPayload
+  ): Promise<CreateTransferRecipientResponse> {
     try {
-      const response = await this.client.post("/login", {});
-      let data = response.data;
-      return data.Object;
-    } catch (error) {
+      const response = await this.client.post("/transfer", {});
+      let { data } = response.data;
+      return data;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  }
+
+  async createTransferRecipient(
+    payload: CreateTransferRecipientPayload
+  ): Promise<CreateTransferRecipientResponse> {
+    try {
+      const response = await this.client.post("/transferrecipient", {});
+      let { data } = response.data;
+      return data;
+    } catch (error: any) {
       throw new Error(error);
     }
   }
 }
 
-export default new GigService();
+export default new PaystackService();

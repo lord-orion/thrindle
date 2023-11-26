@@ -1,23 +1,13 @@
-// {
-
-//   "type": "nuban",
-
-//   "name": "Tolu Robert",
-
-//   "account_number": "01000000010",
-
-//   "bank_code": "058",
-
-//   "currency": "NGN"
-
-// }
-
 export interface CreateTransferRecipientPayload {
   type: string;
   name: string;
   account_number: string;
   bank_code: string;
   currency: string;
+}
+
+export interface initiateTransfer {
+
 }
 
 export interface CreateTransferRecipientResponse {
