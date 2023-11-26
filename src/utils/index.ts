@@ -11,7 +11,8 @@ export const successResponse = (message: string, data: any) => {
 
 export async function generateJWTToken(
   payload: any,
-  secret = config.jwt.secret
+  secret = config.jwt.secret,
+  expireDuration: string
 ) {
   return new Promise((resolve, reject) => {
     jwt.sign(
@@ -19,7 +20,7 @@ export async function generateJWTToken(
         ...payload,
       },
       secret,
-      {},
+      { expiresIn: expireDuration },
       (err: any, token) => {
         if (err) {
           reject(err);
