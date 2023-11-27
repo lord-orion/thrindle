@@ -38,6 +38,7 @@ export const getLoggedInUserHandler = async (
   next: NextFunction
 ) => {
   const userId = req.user;
+  console.log("hello", req.user);
 
   try {
     const user = await UserModel.findById(userId);

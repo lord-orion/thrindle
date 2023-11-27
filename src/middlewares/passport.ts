@@ -19,14 +19,14 @@ const passportStrategy = new JwtStrategy(opts, async function (
   jwt_payload: JwtPayload,
   done: VerifiedCallback
 ) {
-  console.log(opts);
+  // console.log(opts);
 
-  console.log(jwt_payload);
+  // console.log(jwt_payload);
   try {
     const user = await UserModel.findOne({ _id: jwt_payload.id });
     if (user) {
       console.log(user);
-      return done(null, user);
+      return done(null, user._id);
     } else {
       return done(null, false);
       // or you could create a new account

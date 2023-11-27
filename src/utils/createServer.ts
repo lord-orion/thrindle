@@ -5,7 +5,7 @@ import { errorHandler, notFoundHandler } from "../middlewares/errors";
 import authRoutes from "../routes/auth";
 import transactionsRoutes from "../routes/transactions";
 import userRoutes from "../routes/user";
-import transactionRoutes from "../routes/transactions";
+import webhookRoutes from "../routes/webhooks";
 import passport from "passport";
 import passportStrategy from "../middlewares/passport";
 
@@ -28,6 +28,7 @@ function createServer() {
   app.use("/api/auth", authRoutes);
   app.use("/api/user", userRoutes);
   app.use("/api/transactions", transactionsRoutes);
+  app.use("/api/webhooks", webhookRoutes);
 
   return app;
 }

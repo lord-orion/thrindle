@@ -1,8 +1,8 @@
 import axios from "axios";
 import config from "../config";
 import {
-  CreateTransferRecipientPayload,
-  CreateTransferRecipientResponse,
+  initiateTransactionPayload,
+  initiateTransactionResponse,
 } from "../types/paystack";
 
 class PaystackService {
@@ -13,6 +13,7 @@ class PaystackService {
       baseURL: config.paystack.baseUrl,
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${config.paystack.secretKey}`,
       },
     });
   }
@@ -21,27 +22,15 @@ class PaystackService {
     this.client.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   }
 
-  async initiateTransferRecipient(
-    payload: CreateTransferRecipientPayload
-  ): Promise<CreateTransferRecipientResponse> {
+  async initiateTransaction(
+    payload: initiateTransactionPayload
+  ): Promise<initiateTransactionResponse> {
     try {
-      const response = await this.client.post("/transfer", {});
-      let { data } = response.data;
+      const response = await this.client.post("/transaction/initialize", {});
+      let data = response.data;
       return data;
-    } catch (error: any) {
-      throw new Error(error);
-    }
-  }
-
-  async createTransferRecipient(
-    payload: CreateTransferRecipientPayload
-  ): Promise<CreateTransferRecipientResponse> {
-    try {
-      const response = await this.client.post("/transferrecipient", {});
-      let { data } = response.data;
-      return data;
-    } catch (error: any) {
-      throw new Error(error);
+    } catch (error) {
+      throw error;
     }
   }
 }
