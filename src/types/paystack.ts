@@ -2,6 +2,7 @@ export interface initiateTransactionPayload {
   email: string;
   amount: string;
   callback_url?: string;
+  reference?: string;
 }
 
 export interface initiateTransactionResponse {

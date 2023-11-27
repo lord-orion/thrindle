@@ -10,6 +10,7 @@ export const confirmTransaction = (
   next: NextFunction
 ) => {
   const eventData = req.body;
+  console.log(eventData);
   const signature = req.headers["x-paystack-signature"] as string;
 
   if (!verify(eventData, signature)) {
@@ -17,10 +18,11 @@ export const confirmTransaction = (
   }
   if (eventData.event === "charge.success") {
     const { id, amount } = eventData.data;
-    const newTransaction = new TransactionModel({
-      thirdPartyTransactionId: id,
-      amount,
-    });
+    // const newTransaction = new TransactionModel({
+    //   thirdPartyTransactionId: id,
+    //   amount,
+    // });
+    console.log(eventData);
   }
   res.send(200);
 };
